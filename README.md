@@ -4,4 +4,10 @@ A robot player that uses the distance between semicolons on Viriginia Woof's *Th
 
 ![ms woolf](http://litandthought.com/wp-content/uploads/2014/02/virginia-woolf.jpg)
 
+
+40, 1
+120, 40
+180, 157
+40, 329
+
 <3

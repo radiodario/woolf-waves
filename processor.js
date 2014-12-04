@@ -16,15 +16,14 @@ function process(text) {
 
 function processLine(line, i) {
   // XXX tokenize properly
-  var words = line.trim().replace('\n', ' ').replace('\r', ' ').split(' ');
+  var words = line.trim().replace(/\n/g, ' ').replace(/\r/g, ' ').split(' ');
 
   return {
+    i: i,
     firstWord : words[0],
     lastWord: words[words.length - 1],
     numberOfWords : words.length
   };
-
-
 
 }
 

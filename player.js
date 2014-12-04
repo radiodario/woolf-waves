@@ -7,12 +7,12 @@ try {
   midiOut.openVirtualPort('');
 }
 
-var start = 1;
+var start = 1208;
+var BPM = 40;
 
 var lines = require('./processed').data;
 var i = start,
     interval, line;
-var BPM = 40;
 var noteDuration = 1000;
 
 var notes = {

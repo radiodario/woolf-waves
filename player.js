@@ -7,60 +7,79 @@ try {
   midiOut.openVirtualPort('');
 }
 
+var start = 1;
 
 var lines = require('./processed').data;
-var i = 0,
+var i = start,
     interval, line;
-var BPM = 120;
-var noteDuration = 200;
+var BPM = 40;
+var noteDuration = 1000;
 
 var notes = {
-    C:  60,
-    Cs: 61,
-    D:  62,
-    Ds: 63,
-    E:  64,
-    F:  65,
-    Fs: 66,
-    G:  67,
-    Gs: 68,
-    A:  69,
-    As: 70,
-    B:  71
+    // C:  60,
+    // Cs: 61,
+    // D:  62,
+    // Ds: 63,
+    // E:  64,
+    // F:  65,
+    // Fs: 66,
+    // G:  67,
+    // Gs: 68,
+    // A:  69,
+    // As: 70,
+    // B:  71
+    C:  24,
+    Cs: 25,
+    D:  26,
+    Ds: 27,
+    E:  28,
+    F:  29,
+    Fs: 30,
+    G:  31,
+    Gs: 32,
+    A:  33,
+    As: 34,
+    B:  35
 };
 
 
 var scale = [
 "C",
-// "Cs",
+// "Cs", //
 "D",
-// "Ds",
+// "Ds", //
 "E",
 "F",
-// "Fs",
+// "Fs", //
 "G",
-// "Gs",
+// "Gs", //
 "A",
 "As",
-// "B"
+// "B" //
 ];
 
 
 function playNote() {
-  line = lines[i++ % lines.length]; // loop forever
+  line = lines[i % lines.length]; // loop forever
+
+  var octave = ((line.numberOfWords / scale.length | 0) % 10) - 2;
 
   var noteName = scale[line.numberOfWords % scale.length];
 
-  var note = notes[noteName];
+  var note = (notes[noteName] + (octave * 12));
 
-  console.log('noteon', noteName, note);
+
+  var semi = lines[i-1].lastWord + "; " + line.firstWord;
+
+
+  console.log(i, semi, noteName, octave, "midi code:", note);
 
   midiOut.sendMessage([144, note, 100]);
   setTimeout(function() {
     midiOut.sendMessage([128, note, 100]);
   }, noteDuration + Math.random() * 1000 | 0);
 
-
+  i++;
 
 }
 
@@ -75,7 +94,7 @@ function play() {
 
 function stop() {
   console.log("Stop!");
-  i = 0;
+  i = start;
   clearInterval(interval);
 }
 
